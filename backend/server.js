@@ -5,7 +5,6 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const uploadRoutes = require('./routes/upload');
-const qaRoutes = require('./routes/qa');
 
 const app = express();
 const PORT = process.env.PORT || 9000;
@@ -23,7 +22,6 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/upload', uploadRoutes);
-app.use('/api/qa', qaRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

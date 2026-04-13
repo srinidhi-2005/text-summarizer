@@ -64,7 +64,7 @@ const Welcome = () => {
                     Welcome to your Legal AI Companion
                 </h1>
                 <h1 className="text-4xl font-semibold text-[#DEDEDE] pb-3 text-center drop-shadow-lg">
-                    "Summarize judgments. Ask questions.
+                    "Summarize judgments.
                 </h1>
                 <h1 className="text-4xl font-semibold text-[#DEDEDE] pb-16 text-center drop-shadow-lg">
                     Get clarity — effortlessly."
@@ -78,7 +78,7 @@ const Welcome = () => {
                     </button>
                     <button
                         className="px-8 py-3 border-2 border-[#800000] text-[#DEDEDE] rounded-lg hover:bg-[#800000] hover:text-white transition-all duration-300 text-lg font-medium"
-                        onClick={() => window.open('https://drive.google.com/file/d/11KNBqJ33oCIlgdJtMlvH1J7iTZ_9E7S-/view?usp=sharing', '_blank', 'noopener,noreferrer')}
+                        onClick={() => window.open('https://drive.google.com/file/d/1bVmNKaMHSp_JXYkcOjkbSoKEJs8BPrMt/view?usp=sharing', '_blank', 'noopener,noreferrer')}
                     >
                         Demo
                     </button>

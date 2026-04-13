@@ -1,6 +1,6 @@
-# TextSummarizer (TALQS AI)
+# TextSummarizer
 
-TextSummarizer (TALQS AI) is a GenAI-powered, full-stack web application that leverages advanced Transformer-based Deep Learning models to simplify complex legal texts. Designed to make legal information more accessible to lawyers, researchers, and the general public, it summarizes lengthy judgments and answers legal queries through an intuitive interface. Users can upload documents or input text to receive high-quality summaries and interact with a legal Q&A chatbot. The platform features JWT authentication, user profiles, upload and summarization and multi-turn Q&A. It is built with React, Node.js/Express, MongoDB Atlas, and Python FastAPI for custom models.
+TextSummarizer is a GenAI-powered, full-stack web application that leverages advanced Transformer-based Deep Learning models to simplify complex legal texts. Designed to make legal information more accessible to lawyers, researchers, and the general public, it summarizes lengthy judgments through an intuitive interface. Users can upload documents or input text to receive high-quality summaries. The platform features JWT authentication, user profiles, and document/text summarization. It is built with React, Node.js/Express, MongoDB Atlas, and Python FastAPI for custom models.
 
 ## ✨ Features
 
@@ -8,20 +8,8 @@ TextSummarizer (TALQS AI) is a GenAI-powered, full-stack web application that le
 - **Profile Management**
 - **Document/Text Upload & Summarization**
 - **Listen to the generated summaries**
-- **Legal Q&A Chatbot** (multi-turn, persistent chat)
 - **Modern Responsive UI** (React, Tailwind)
 - **Custom ML Models** (PyTorch, HuggingFace, FastAPI)
-
-## 🏗️ Architecture
-
-```mermaid
-graph TD
-  A[React Frontend] -- REST API --> B[Node.js/Express Backend]
-  B -- REST API --> C[FastAPI ML Service]
-  B -- MongoDB Atlas --> D[(MongoDB)]
-  C -- Loads --> E[Custom Summarization Model]
-  C -- Loads --> F[Custom QA Model]
-```
 
 ## 🛠️ Tech Stack
 
@@ -56,7 +44,6 @@ FASTAPI_URL=http://localhost:8000
 
 ```
 SUMMARY_MODEL_PATH=summary custom model.pth
-QA_MODEL_PATH=qa custom model.pth
 ```
 
 ### 3. (Recommended) Create a Python Virtual Environment
@@ -124,20 +111,16 @@ source venv/bin/activate
 - `POST /api/auth/login` — Login, returns JWT
 - `GET /api/profile` — Get user profile (auth)
 - `POST /api/upload` — Upload file or text for summarization (auth)
-- `POST /api/qa` — Ask a question to the QA bot (auth)
 
 ### FastAPI (Python ML Service)
 
 - `POST /summarize` — Summarize uploaded file/text
   - Request: `{ file: <file> }`
   - Response: `{ summary: <string> }`
-- `POST /qa` — Answer legal question
-  - Request: `{ question: <string> }`
-  - Response: `{ answer: <string> }`
 
 ## 🧑‍💻 Usage
 
 1. **Sign up / Login**
 2. **Upload a document** or **paste text** to summarize
 3. **Download** or **copy** or **listen** the summary text
-4. **Ask legal questions** in the floating Q&A chat
+4. **Download** or **copy** or **listen** to generated summaries

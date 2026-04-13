@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 
 const Contact = () => {
@@ -100,20 +100,12 @@ const Contact = () => {
             <h4 className="text-white font-semibold mb-2 border-b-2 border-[#800000] inline-block pb-1">Connect</h4>
             <div className="flex gap-[16px] mt-2">
                 <a
-                href="https://github.com/srinidhi-2005/talqs"
+                href="https://github.com/srinidhi-2005/text-summarizer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white text-xl hover:text-3xl"
                 >
                 <FaGithub />
-                </a>
-                <a
-                href="https://www.linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white text-xl hover:text-3xl"
-                >
-                <FaLinkedin />
                 </a>
             </div>
             </div>

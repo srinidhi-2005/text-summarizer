@@ -13,13 +13,7 @@ const Home = () => {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showQABot, setShowQABot] = useState(false);
-  const [qaInput, setQaInput] = useState("");
-  const [qaLoading, setQaLoading] = useState(false);
-  const [qaError, setQaError] = useState("");
-  const [chat, setChat] = useState([]);
   const summaryRef = useRef(null);
-  const chatEndRef = useRef(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -30,23 +24,14 @@ const Home = () => {
       setFile(null);
       setSummary("");
       setError("");
-      setQaInput("");
-      setQaError("");
-      setChat([]);
       window.history.replaceState({}, document.title, "/home");
     }
   }, [location.search]);
 
-  useEffect(() => {
-    if (showQABot && chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [chat, showQABot]);
-
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#f3f4f6]">
-        <h2 className="text-3xl font-bold mb-6 text-[#800000]">Please log in to use Talqs AI</h2>
+        <h2 className="text-3xl font-bold mb-6 text-[#800000]">Please log in to use Text Summarizer</h2>
         <button
           onClick={() => navigate("/login")}
           className="bg-[#800000] text-white px-8 py-4 rounded-lg text-xl font-semibold hover:bg-[#990909] transition"
@@ -147,32 +132,6 @@ const Home = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const handleAskQuestion = async (e) => {
-    e.preventDefault();
-    if (!qaInput.trim()) return;
-    setQaLoading(true);
-    setQaError("");
-    setChat((prev) => [...prev, { sender: "user", text: qaInput }]);
-    try {
-      const res = await fetch("/api/qa", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify({ question: qaInput })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to get answer");
-      setChat((prev) => [...prev, { sender: "bot", text: data.answer }]);
-      setQaInput("");
-    } catch (err) {
-      setQaError(err.message);
-    } finally {
-      setQaLoading(false);
-    }
-  };
-
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center overflow-x-hidden bg-[#f9f5f5]">
       <div className="absolute top-0 left-0 w-full z-30">
@@ -233,63 +192,6 @@ const Home = () => {
           </div>
           <div className="flex-1" />
         </div>
-
-        <button
-          className="fixed bottom-8 right-8 z-40 bg-[#800000] text-white px-6 py-3 rounded-full shadow-lg text-lg font-semibold hover:bg-[#990909] transition"
-          onClick={() => setShowQABot(true)}
-        >
-          Ask Questions
-        </button>
-
-        {showQABot && (
-          <div className="fixed inset-0 flex items-end justify-end z-50 bg-black bg-opacity-30">
-            <div className="bg-white rounded-t-2xl shadow-2xl p-6 w-full max-w-sm m-8 relative animate-slide-up flex flex-col h-[500px]">
-              <button
-                className="absolute top-2 right-2 text-gray-500 hover:text-[#800000] text-2xl"
-                onClick={() => setShowQABot(false)}
-              >
-                &times;
-              </button>
-              <h3 className="text-xl font-bold mb-2 text-[#800000]">Legal Q&A Bot</h3>
-              <div className="flex-1 overflow-y-auto mb-2 bg-gray-50 rounded p-2">
-                {chat.length === 0 && (
-                  <div className="text-gray-400 text-center mt-8">Ask a question about your document...</div>
-                )}
-                {chat.map((msg, idx) => (
-                  <div key={idx} className={`mb-2 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
-                    <div
-                      className={`rounded-lg px-4 py-2 text-sm max-w-[80%] ${msg.sender === "user"
-                          ? "bg-[#e0e7ff] text-gray-900"
-                          : "bg-[#f3f4f6] text-[#800000] border border-[#e0e0e0]"
-                        }`}
-                    >
-                      {msg.text}
-                    </div>
-                  </div>
-                ))}
-                <div ref={chatEndRef} />
-              </div>
-              <form className="flex gap-2 mt-2" onSubmit={handleAskQuestion}>
-                <input
-                  type="text"
-                  value={qaInput}
-                  onChange={(e) => setQaInput(e.target.value)}
-                  placeholder="Ask a question..."
-                  className="flex-1 border border-gray-300 rounded px-3 py-2"
-                  disabled={qaLoading}
-                />
-                <button
-                  type="submit"
-                  className="bg-[#800000] text-white px-4 py-2 rounded"
-                  disabled={qaLoading || !qaInput.trim()}
-                >
-                  {qaLoading ? "..." : "Send"}
-                </button>
-              </form>
-              {qaError && <div className="text-red-600 mt-2 text-center">{qaError}</div>}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

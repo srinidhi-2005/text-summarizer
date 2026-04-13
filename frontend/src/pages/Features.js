@@ -1,7 +1,6 @@
 import {useRef} from "react";
 import { ImFolderUpload } from "react-icons/im";
 import { PiFileTextDuotone } from "react-icons/pi";
-import { TbMessageChatbot } from "react-icons/tb";
 import { MdSpaceDashboard } from "react-icons/md";
 import { MdOutlineDownload } from "react-icons/md";
 import { FaUserLock } from "react-icons/fa";
@@ -16,11 +15,6 @@ const features = [
     title: "Automatic Summarization",
     desc: "Generate abstractive summaries with customizable lengths..",
     icon: <PiFileTextDuotone className="w-10 h-10 mx-auto mb-4 text-[#800000]"/>
-  },
-  {
-    title: "Interactive Chatbot",
-    desc: "Chatbot-style interface to ask natural language questions based on uploaded legal documents.",
-    icon: <TbMessageChatbot className="w-10 h-10 mx-auto mb-4 text-[#800000]"/>
   },
   {
     title: "Dashboard",
